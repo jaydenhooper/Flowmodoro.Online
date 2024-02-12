@@ -10,6 +10,13 @@ views = Blueprint('views', __name__)
 @login_required
 def home():
     if request.method == 'POST':
+        print("POST REQUEST ON HOME PAGE, NOT HANDLED.")
+    return render_template('home.html', user=current_user)
+
+@views.route('/notes', methods=['GET', 'POST'])
+@login_required
+def notes():
+    if request.method == 'POST':
         note = request.form.get('note')
         if len(note) < 1:
             flash("Note is too short", category='error')
@@ -18,7 +25,7 @@ def home():
             db.session.add(new_note)
             db.session.commit()
             flash('Note added!', category='success')
-    return render_template("home.html", user=current_user)
+    return render_template("notes.html", user=current_user)
 
 @views.route('/delete-note', methods=['POST'])
 def delete_note():
