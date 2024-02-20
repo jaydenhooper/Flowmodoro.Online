@@ -3,14 +3,20 @@
 {% block title %}Home{% endblock %} 
 
 {% block content %}
-<h1 align="center">Online Chess</h1>
-<canvas align="center" class="chess_board" >
-    <p>The chess board could not be loaded.</p>
-</canvas>
+<h1 align="center">Flomodoro Timer</h1>
+
+<div>
+    <p id="timeText" class="d-flex justify-content-center">00:00</p>
+</div>
+
+<div class="d-flex justify-content-center">
+    <button id="timeButton">Start Timer</button>
+</div>
 
 <script
       type="text/javascript"
-      src="{{ url_for('static', filename='chess_board.js') }}"
-    ></script>
+      src="{{ url_for('static', filename='timer.js') }}"
+></script>
+
 
 {% endblock %}

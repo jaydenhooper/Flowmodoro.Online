@@ -6,3 +6,9 @@ canvas
   margin: auto;
   display: block;
 }
+
+.centeredButton {
+  padding: 10px;
+  /* justify-content: center; */
+  /* align-items: center; */
+}
