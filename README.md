@@ -1,4 +1,4 @@
-# Chess Website
+# Flowmodoro website
 
 ## Built with Python using Flask back-end and JavaScript front-end.
 
