@@ -1,4 +1,4 @@
-var seconds = 0, minutes = 0;
+var seconds = 0, minutes = 0, elapsedTime = 0, breakTime = 0;
 var mode;
 var myInterval;
 var timerText = document.getElementById('timeText');
@@ -12,52 +12,58 @@ var notificationText = document.getElementById('notificationText');
 /* ****************************************** */
 
 
-function formatTime() {
-    if (seconds >= 60) {
-        minutes += Math.floor(seconds / 60);
-        seconds %= 60;
+function formatTime(deltaSeconds) {
+    if (mode === modeEnum.STUDY) {
+        totalTimeInSeconds = elapsedTime + Math.floor(deltaSeconds);
+        minutes = Math.floor(totalTimeInSeconds / 60);
+        seconds = totalTimeInSeconds % 60;
+    } else {
+        totalTimeInSeconds = breakTime - Math.floor(deltaSeconds);
+        minutes = Math.floor(totalTimeInSeconds / 60);
+        seconds = totalTimeInSeconds % 60;
+        if (minutes <= 0 && seconds <= 0) {
+            minutes = 0;
+            seconds = 0;
+        }
     }
-    if (seconds < 0) {
-        minutes -= 1;
-        seconds = 59;
-    }
-    if (minutes <= 0 && seconds <= 0) {
-        minutes = 0;
-        seconds = 0;
-    }
+    console.log(seconds);
     return minutes.toString().padStart(2, "0") + ":" +
-        seconds.toString().padStart(2, "0");
+           seconds.toString().padStart(2, "0");
 }
 
 
-function incrementTime() {
-    seconds += 1;
-    timerText.innerHTML = formatTime();
+function incrementTime(startTime) {
+    var delta = Date.now() - startTime;
+    deltaSeconds = Math.floor(delta / 1000);
+    timerText.innerHTML = formatTime(deltaSeconds);
 }
 
 
-function decrementTime() {
+function decrementTime(startTime) {
     if(minutes <= 0 && seconds <= 0) {
         notifyBreakFinished();
         return;
     }
-    seconds -= 1;
-    timerText.innerHTML = formatTime();
+    var delta = Date.now() - startTime;
+    deltaSeconds = Math.floor(delta / 1000);
+    timerText.innerHTML = formatTime(deltaSeconds);
 }
 
 
 function start() {
     // handle timer
     timeButton.innerHTML = "PAUSE";
-    if ( mode === modeEnum.STUDY) {
+    if (mode === modeEnum.STUDY) {
         studyStart();
-    } else if ( mode === modeEnum.BREAK) {
+    } else if (mode === modeEnum.BREAK) {
         breakStart();
     }
 }
 
 
 function pause() {
+    elapsedTime = minutes * 60 + seconds;
+    breakTime = minutes * 60 + seconds;
     timeButton.innerHTML = "START";
     clearInterval(myInterval);
 }
@@ -65,11 +71,12 @@ function pause() {
 
 function reset() {
     pause();
+    elapsedTime = 0;
     setMode(modeEnum.STUDY);
     currentFunction = start;
     seconds = 0;
     minutes = 0;
-    timerText.innerHTML = formatTime();
+    timerText.innerHTML = formatTime(0);
 }
 
 
@@ -110,9 +117,9 @@ mode = modeEnum.STUDY;
 function setMode(mode_enum) {
     mode = mode_enum
     clearNotes();
-    if ( mode === modeEnum.STUDY ) {
+    if (mode === modeEnum.STUDY) {
         setUpStudy();
-    } else if ( mode === modeEnum.BREAK ) {
+    } else if (mode === modeEnum.BREAK) {
         setUpBreak();
     }
 }
@@ -129,7 +136,8 @@ function clearNotes() {
 
 
 function studyStart() {
-    myInterval = setInterval(incrementTime, 1000);
+    var startTime = Date.now();
+    myInterval = setInterval(incrementTime, 100, startTime);
     document.getElementById("breakButton").style.display="inline";
 }
 
@@ -146,7 +154,8 @@ function setUpStudy() {
 
 
 function breakStart() {
-    myInterval = setInterval(decrementTime, 1000);
+    var startTime = Date.now();
+    myInterval = setInterval(decrementTime, 100, startTime);
     var ps = notificationText.getElementsByTagName('p');
     var p = ps[0];
     p.innerHTML = "Enjoy your break! You will be alerted when your break has finished."
@@ -159,7 +168,7 @@ function setUpBreak() {
     calculateBreakTime(denominator);
 
     // update time on timerText
-    timerText.innerHTML = formatTime();  
+    timerText.innerHTML = formatTime(0);  
 
     // hide break button
     document.getElementById("breakButton").style.display = 'none';
@@ -179,10 +188,10 @@ function goBreak() {
 
 
 function calculateBreakTime(denominator) {
-    seconds = Math.ceil((minutes * 60 + seconds) / denominator);
-    minutes = 0;
+    breakTime = Math.ceil((minutes * 60 + seconds) / denominator);
+    seconds = 0, minutes = 0;
     minBreakTime = 120; // minimum break time of 2 minutes
-    seconds = Math.max(minBreakTime, seconds);  
+    breakTime = Math.max(minBreakTime, breakTime);  
 }
 
 
