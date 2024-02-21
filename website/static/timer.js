@@ -26,7 +26,6 @@ function formatTime(deltaSeconds) {
             seconds = 0;
         }
     }
-    console.log(seconds);
     return minutes.toString().padStart(2, "0") + ":" +
            seconds.toString().padStart(2, "0");
 }
