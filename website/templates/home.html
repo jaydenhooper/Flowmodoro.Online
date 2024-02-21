@@ -5,18 +5,21 @@
 {% block content %}
 <h1 align="center">Flomodoro Timer</h1>
 
+<div id="notificationText" class="d-flex justify-content-center"></div>
+
 <div>
     <p id="timeText" class="d-flex justify-content-center">00:00</p>
 </div>
 
-<div class="d-flex justify-content-center">
-    <button id="timeButton">Start Timer</button>
+<div id="timeDiv" class="d-flex justify-content-center">
+    <button id="timeButton">START</button>
+    <button id="resetButton" onclick="reset()">RESET</button>
+    <button id="breakButton" onclick="goBreak()" style="display:none">BREAK</button>
 </div>
 
 <script
       type="text/javascript"
       src="{{ url_for('static', filename='timer.js') }}"
 ></script>
-
 
 {% endblock %}
