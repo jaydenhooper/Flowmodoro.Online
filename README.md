@@ -30,3 +30,12 @@ The Flowmodoro technique is the most significant optimization of maintaining hig
 * HTML
 * CSS
 * Bootstrap (CSS Framework)
+
+## Future Enhancements
+1. Setup distraction sheet.
+   * In the break setup phase, give the user the capability to add notes for all the distractions from this focus period.
+   * During the focus phase, show this list to remind them of their distractions.
+2. Deploy Project.
+3. Data Analytics.
+   * Send duraction of focus period and today's datetime to database.
+   * Retrieve data and display it in a graph to show the user their focus trends.
