@@ -1,0 +1,3 @@
+include instance/database.db
+graft website/static
+graft website/templates
