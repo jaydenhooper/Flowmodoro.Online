@@ -158,7 +158,7 @@ function breakStart() {
     var ps = notificationText.getElementsByTagName('p');
     var p = ps[0];
     p.innerHTML = "Enjoy your break!" + "<br />" +
-     "You will be alerted when your break has finished. hi!"
+     "You will be alerted when your break has finished."
 }
 
 
