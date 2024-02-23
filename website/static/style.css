@@ -1,15 +1,8 @@
-
-canvas
-{
-  max-width: 100%;
-  max-height: 100%;
-  margin: auto;
-  display: block;
-}
-
 .centeredButton {
   padding: 10px;
-  /* justify-content: center; */
-  /* align-items: center; */
+  
 }
 
+body {
+  text-align: center;
+}
