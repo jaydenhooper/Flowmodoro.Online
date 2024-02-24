@@ -1,16 +1,18 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from os import path
+import os
+from dotenv import load_dotenv, dotenv_values
 from flask_login import LoginManager
 
 db = SQLAlchemy()
-DB_NAME = "database.db"
-
+DB_NAME = "flowmodoro_database"
 
 def create_app():
     app = Flask(__name__)
-    app.config['SECRET_KEY'] = 'secret'
-    app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
+    load_dotenv()
+    app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL")
     db.init_app(app)
 
     from .views import views
