@@ -2,7 +2,7 @@
 
 ## Project Description
 
-[Flowmodoro Online](https://flowmodoro.online/]), get in focus, stay in focus. 
+[Flowmodoro Online](https://flowmodoro.online/]), get in focus sooner, stay in focus longer. 
 
 The Flowmodoro technique is the most significant optimization of maintaining high focus cumatively. It emphasizes taking breaks when your focus edge starts to blunt rather than when you have become completely worn out. It is known to be significantly more effective than pomodoro and the 52/17 technique. 
 
