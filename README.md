@@ -1,6 +1,6 @@
 # Flowmodoro Online
 
-(flowmodoro.online)[https://flowmodoro.online/]
+[Flowmodoro Online](https://flowmodoro.online/])
 
 ## Project Description
 
