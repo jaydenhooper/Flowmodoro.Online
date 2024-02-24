@@ -25,6 +25,7 @@ The Flowmodoro technique is the most significant optimization of maintaining hig
 
 ## Technologies Used
 * Python with Flask framework
+* Render - Web Service and PostgreSQL Database
 * Flask SQLAlchemy
 * JavaScript
 * HTML
